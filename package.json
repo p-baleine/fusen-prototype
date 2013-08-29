@@ -1,0 +1,34 @@
+{
+  "name": "fusen-prototype",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "./node_modules/.bin/testem ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:p-baleine/fusen-prototype.git"
+  },
+  "author": "Tajima Junpei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/p-baleine/fusen-prototype/issues"
+  },
+  "dependencies": {
+    "express": "latest",
+    "socket.io": "latest",
+    "jade": "latest",
+    "debug": "latest",
+    "browserify": "latest",
+    "coffeeify": "latest",
+    "grunt": "latest",
+    "grunt-browserify": "latest",
+    "grunt-contrib-coffee": "latest",
+    "grunt-contrib-stylus": "latest"
+  },
+  "devDependencies": {
+    "testem": "latest",
+    "grunt-contrib-watch": "latest"
+  }
+}
