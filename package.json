@@ -20,6 +20,7 @@
     "express": "latest",
     "socket.io": "latest",
     "jade": "latest",
+    "underscore": "latest",
     "debug": "latest",
     "bower": "latest",
     "backbone": "latest",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "testem": "latest",
     "expect.js": "latest",
+    "sinon": "latest",
     "grunt-contrib-watch": "latest"
   }
 }

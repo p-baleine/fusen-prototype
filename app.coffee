@@ -44,4 +44,10 @@ io.sockets.on 'connection', (socket) ->
   dragmove.onValue (data) ->
     debug 'dragmove', data
     socket.broadcast.emit 'moving', data
-    
+
+  message = Bacon.fromEventTarget socket, 'message'
+
+  message.onValue (data) ->
+    debug 'message', data
+    socket.broadcast.emit 'message', data
+  

@@ -6,6 +6,7 @@ $ = require 'jQuery'
 Bacon = require 'baconjs'
 SVG = require 'SVG'
 PostItElement = require './post-it-element.coffee'
+ChatApp = require './chat-app.coffee'
 
 # キャンバス初期化
 init = (room, commandDest, commandSrc, draw) ->
@@ -49,4 +50,7 @@ $(->
   # 参加
   socket.emit 'join', (room) ->
     init room, commandDest, commandSrc, draw
+
+  # チャット
+  new ChatApp socket
 )

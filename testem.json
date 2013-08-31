@@ -6,7 +6,6 @@
     "spec/client/**/*.coffee"
   ],
   "serve_files": [
-    "public/application.js",
     "public/application.spec.js"
   ]
 }
