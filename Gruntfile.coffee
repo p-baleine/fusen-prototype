@@ -21,6 +21,11 @@ module.exports = (grunt) ->
         dest: 'public/application.js'
         options:
           debug: true
+      unit:
+        src: ['spec/client/spec-harness.coffee']
+        dest: 'public/application.spec.js'
+        options:
+          debug: true
       options:
         transform: ['coffeeify', 'node-underscorify']
         shim:

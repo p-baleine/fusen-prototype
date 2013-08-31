@@ -7,6 +7,7 @@ io = require('socket.io').listen server
 debug = require('debug')('http')
 Bacon = require 'baconjs'
 room = require './room'
+id = room.elements.length
 
 # Middleware
 app.use express.static("#{__dirname}/public")
@@ -22,6 +23,7 @@ app.get '/', (req, res) ->
 io.sockets.on 'connection', (socket) ->
 
   join = Bacon.fromEventTarget socket, 'join'
+  add = Bacon.fromEventTarget socket, 'add'
   edit = Bacon.fromEventTarget socket, 'edit'
   dragmove = Bacon.fromEventTarget socket, 'dragmove'
 
@@ -30,9 +32,14 @@ io.sockets.on 'connection', (socket) ->
     debug 'join', arguments
     socket.broadcast.emit 'joined', 'hoge'
 
-  edit.onValue ->
+  add.onValue (data) ->
+    debug 'add', arguments
+    data.id = ++id + ''
+    io.sockets.emit 'added', data
+
+  edit.onValue (data) ->
     debug 'edit', arguments
-    socket.broadcast.emit 'edit'
+    socket.broadcast.emit 'edited', data
 
   dragmove.onValue (data) ->
     debug 'dragmove', data

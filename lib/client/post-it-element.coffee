@@ -21,15 +21,18 @@ class PostItElement
 
     # こちらの移動
     el.dragmove = dragmove.push
-    dragmove
-      .map((delta) -> { x: delta.x, y: delta.y })
-      .assign(el, 'transform')
+    drgmoveProperty = dragmove
+      .map((delta) -> x: delta.x, y: delta.y)
+    drgmoveProperty.assign(el, 'transform')
+    drgmoveProperty.assign (delta) => # TODO dataはクラスに切り出したほうがいい気がする
+      @data.trans.x = delta.x
+      @data.trans.y = delta.y
     @commandDest.plug dragmove.map(@dragmoveCommand)
 
     # 内容の編集
-    startEdit.onValue ->
+    startEdit.onValue =>
       $editor
-        .css(left: data.trans.x + 5, top: data.trans.y + 5)
+        .css(left: @data.trans.x + 5, top: @data.trans.y + 5)
         .appendTo '#white-board'
     textProperty.assign $el.find('text').get(0).instance, 'text'
     textProperty.assign (text) => @data.text = text
@@ -37,10 +40,24 @@ class PostItElement
     @commandDest.plug finishEdit.map(@editCommand)
 
     # 外からの移動
-    @commandSrc.moving
-      .filter((args) => args.id is @data.id)
+    moved = @commandSrc.moving
+      .filter(@isMine)
       .map((args) -> x: args.delta.x, y: args.delta.y)
-      .assign(el, 'transform')
+    moved.assign(el, 'transform')
+    moved.assign (delta) =>
+      @data.trans.x = delta.x
+      @data.trans.y = delta.y
+
+    # 外からの編集
+    edited = @commandSrc.edited
+      .filter(@isMine)
+      .map((data) -> data.text)
+    edited.assign($el.find('text').get(0).instance, 'text') # TODO refactoring
+    edited.assign($editor, 'val') # TODO refactoring
+
+  # 自分に対するコマンドか判定する
+  isMine: (data) =>
+    data.id is @data.id
 
   # `dragmove`コマンドを返却する
   dragmoveCommand: (delta) =>
@@ -54,10 +71,11 @@ class PostItElement
     name: 'edit'
     data:
       id: @data.id
-      text: 'hoge'
+      text: @data.text
 
 # ポストイットSVG要素を作成して返却する
 PostItElement.createElement = (draw, data) ->
+  # TODO useで再利用
   g = draw.group()
   rect = g.rect(100, 100).attr(fill: data.fill)
 

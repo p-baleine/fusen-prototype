@@ -1,0 +1,12 @@
+{
+  "before_tests": "grunt browserify",
+  "framework": "mocha",
+  "src_files": [
+    "lib/client/**/*.coffee",
+    "spec/client/**/*.coffee"
+  ],
+  "serve_files": [
+    "public/application.js",
+    "public/application.spec.js"
+  ]
+}

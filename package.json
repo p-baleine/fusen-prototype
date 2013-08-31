@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "./node_modules/.bin/testem ci"
+    "test": "./node_modules/.bin/testem ci",
+    "pre-publish": "./node_modules/.bin/bower install"
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,10 @@
     "socket.io": "latest",
     "jade": "latest",
     "debug": "latest",
+    "bower": "latest",
+    "backbone": "latest",
     "baconjs": "latest",
     "baconui": "latest",
-    "svg.js": "git://github.com/wout/svg.js.git",
     "browserify": "latest",
     "coffeeify": "latest",
     "node-underscorify": "latest",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "testem": "latest",
+    "expect.js": "latest",
     "grunt-contrib-watch": "latest"
   }
 }
