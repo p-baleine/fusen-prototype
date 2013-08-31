@@ -39,6 +39,7 @@ $(->
   commandSrc =
     edited: socketStream('edited')
     moving: socketStream('moving')
+    moved: socketStream('moved')
 
   added.onValue (data) -> new PostItElement data, commandDest, commandSrc, draw
 

@@ -26,6 +26,7 @@ io.sockets.on 'connection', (socket) ->
   add = Bacon.fromEventTarget socket, 'add'
   edit = Bacon.fromEventTarget socket, 'edit'
   dragmove = Bacon.fromEventTarget socket, 'dragmove'
+  dragend = Bacon.fromEventTarget socket, 'dragend'
 
   join.onValue (cb) ->
     cb room
@@ -44,6 +45,10 @@ io.sockets.on 'connection', (socket) ->
   dragmove.onValue (data) ->
     debug 'dragmove', data
     socket.broadcast.emit 'moving', data
+
+  dragend.onValue (data) ->
+    debug 'dragend', data
+    socket.broadcast.emit 'moved', data  
 
   message = Bacon.fromEventTarget socket, 'message'
 

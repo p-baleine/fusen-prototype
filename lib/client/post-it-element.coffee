@@ -17,17 +17,23 @@ class PostItElement
     startEdit = $el.asEventStream 'dblclick'
     finishEdit = $editor.asEventStream 'blur' # focusout
     textProperty = BaconUI.textFieldValue($editor, @data.text).map '.trim'
-    dragmove = new Bacon.Bus()
+    dragmove = new Bacon.Bus
+    dragend = new Bacon.Bus
 
     # こちらの移動
     el.dragmove = dragmove.push
     drgmoveProperty = dragmove
       .map((delta) -> x: delta.x, y: delta.y)
-    drgmoveProperty.assign(el, 'transform')
-    drgmoveProperty.assign (delta) => # TODO dataはクラスに切り出したほうがいい気がする
-      @data.trans.x = delta.x
-      @data.trans.y = delta.y
     @commandDest.plug dragmove.map(@dragmoveCommand)
+
+    # 移動の終わり
+    el.dragend = dragend.push
+    dragend = dragend.map (delta) => x: delta.x, y: delta.y
+    dragend.assign (delta) =>
+      @data.trans.x += delta.x
+      @data.trans.y += delta.y
+      el.transform x: @data.trans.x, y: @data.trans.y
+    @commandDest.plug dragend.map(@dragendCommand)
 
     # 内容の編集
     startEdit.onValue =>
@@ -40,13 +46,19 @@ class PostItElement
     @commandDest.plug finishEdit.map(@editCommand)
 
     # 外からの移動
-    moved = @commandSrc.moving
+    moving = @commandSrc.moving
       .filter(@isMine)
-      .map((args) -> x: args.delta.x, y: args.delta.y)
+      .map((args) => x: @data.trans.x + args.delta.x, y: @data.trans.y + args.delta.y)
+    moving.assign(el, 'transform')
+
+    # 外からの移動の終わり
+    moved = @commandSrc.moved
+      .filter(@, 'isMine')
+      .map((args) => x: @data.trans.x + args.delta.x, y: @data.trans.y + args.delta.y)
     moved.assign(el, 'transform')
-    moved.assign (delta) =>
-      @data.trans.x = delta.x
-      @data.trans.y = delta.y
+    moved.assign (trans) =>
+      @data.trans.x = trans.x
+      @data.trans.y = trans.y
 
     # 外からの編集
     edited = @commandSrc.edited
@@ -62,6 +74,13 @@ class PostItElement
   # `dragmove`コマンドを返却する
   dragmoveCommand: (delta) =>
     name: 'dragmove'
+    data:
+      id: @data.id
+      delta: delta
+
+  # `dragend`コマンドを返却する
+  dragendCommand: (delta) =>
+    name: 'dragend'
     data:
       id: @data.id
       delta: delta
