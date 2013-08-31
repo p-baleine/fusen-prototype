@@ -1,5 +1,5 @@
 {
-  "before_tests": "grunt browserify",
+  "before_tests": "grunt browserify:unit",
   "framework": "mocha",
   "src_files": [
     "lib/client/**/*.coffee",

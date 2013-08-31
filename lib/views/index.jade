@@ -5,11 +5,13 @@ html
   body
     #white-board
     #side-bar
-      svg#new-note
-        g.note
-          rect(fill="#60f" width="100" height="100")
-          text.text
-      textarea#new-note-text.editor
-      button#paste Paste
+      #chat
+      #new-note-wrap
+        svg#new-note
+          g.note
+            rect(fill="#60f" width="100" height="100")
+            text.text
+        textarea#new-note-text.editor
+        button#paste Paste
     script(src="/socket.io/socket.io.js")
     script(src="/application.js")
