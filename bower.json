@@ -1,0 +1,20 @@
+{
+  "name": "fusen-prototype",
+  "version": "0.0.0",
+  "homepage": "https://github.com/p-baleine/fusen-prototype",
+  "authors": [
+    "Tajima Junpei <p.baleine@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "svg.js": "latest"
+  }
+}

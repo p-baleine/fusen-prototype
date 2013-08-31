@@ -1,0 +1,19 @@
+{
+  "_id": "roomid",
+  "elements": [
+    {
+      "id": "0",
+      "type": "note",
+      "trans": { "x": 0, "y": 0 },
+      "fill": "#f06",
+      "text": "内容１"
+    },
+    {
+      "id": "1",
+      "type": "note",
+      "trans": { "x": 105, "y": 0 },
+      "fill": "#f06",
+      "text": "内容２"
+    }
+  ]
+}
