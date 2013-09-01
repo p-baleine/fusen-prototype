@@ -1,11 +1,12 @@
 {
   "name": "fusen-prototype",
-  "version": "0.0.1",
+  "version": "0.0.1-2",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "./node_modules/.bin/testem ci",
-    "postinstall": "./node_modules/.bin/bower install"
+    "postinstall": "./node_modules/.bin/bower install && ./node_modules/grunt-cli/bin/grunt deploy:production",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "node-underscorify": "latest",
     "jquery-browserify": "latest",
     "grunt": "latest",
+    "grunt-cli": "latest",
     "grunt-browserify": "latest",
     "grunt-contrib-coffee": "latest",
     "grunt-contrib-stylus": "latest"
@@ -40,5 +42,9 @@
     "expect.js": "latest",
     "sinon": "latest",
     "grunt-contrib-watch": "latest"
+  },
+  "subdomain": "p-baleine-fusen-prototype",
+  "engines": {
+    "node": "0.10.x"
   }
 }

@@ -60,7 +60,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
 
-  grunt.registerTask 'heroku:production', [
+  grunt.registerTask 'deploy:production', [
     'coffee:server'
     'browserify:dev'
     'stylus'
