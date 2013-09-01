@@ -3,7 +3,7 @@
 express = require 'express'
 app = express()
 port = process.env.PORT || 3000
-server = app.listen post
+server = app.listen port
 io = require('socket.io').listen server
 debug = require('debug')('http')
 Bacon = require 'baconjs'
