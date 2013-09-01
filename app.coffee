@@ -2,7 +2,8 @@
 # Module dependencies.
 express = require 'express'
 app = express()
-server = app.listen 3000
+port = process.env.PORT || 3000
+server = app.listen post
 io = require('socket.io').listen server
 debug = require('debug')('http')
 Bacon = require 'baconjs'
