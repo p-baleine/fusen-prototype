@@ -9,4 +9,4 @@ before_script:
   - npm install -g grunt-cli
 
 script:
-  - ./node_modules/.bin/testem ci
+  - DISPLAY=:99.0 ./node_modules/.bin/testem ci
