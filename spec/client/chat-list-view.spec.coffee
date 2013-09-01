@@ -18,7 +18,7 @@ describe 'chat-list-view', ->
       </div>
     """
     @collection = new Backbone.Collection
-    @collection.url = '/piyo'
+    @collection.url = '/'
     @view = new ChatListView collection: @collection, el: $(@testbed)
 
   it 'Backbone.Viewのインスタンスであること', ->
